@@ -155,5 +155,8 @@ bool MusicLibrary::addSongToPlayList(int pos)
 //Implement the public function 'playPlaylist' which plays the songs in the playlist in the same order as the songs have been added to the playlist.
 void MusicLibrary::playPlaylist()
 {
-	
+	for (int i = 0; i < numSongsPlayList; i++)
+	{
+		playList[i]->Play();
+	}
 }
