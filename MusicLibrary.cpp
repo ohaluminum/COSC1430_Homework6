@@ -9,10 +9,10 @@ MusicLibrary::MusicLibrary(int maxsongs)
 {
 	maxSongs = maxsongs;
 	numSongs = 0;
-	mySongs = nullptr;
-
 	numSongsPlayList = 0;
-	playList = nullptr;
+
+	mySongs = new Song[maxSongs];
+	playList = new Song*[maxSongs];
 }
 
 //Implement a copy constructor.
@@ -20,26 +20,10 @@ MusicLibrary::MusicLibrary(MusicLibrary& other)
 {
 	this->maxSongs = other.maxSongs;
 	this->numSongs = other.numSongs;
-
-	if (numSongs == 0)
-	{
-		mySongs = nullptr;
-	}
-	else
-	{
-		mySongs = new Song[numSongs];
-	}
-
 	this->numSongsPlayList = other.numSongsPlayList;
 
-	if (numSongsPlayList == 0)
-	{
-		playList = nullptr;
-	}
-	else
-	{
-		playList = new Song*[numSongs];
-	}
+	mySongs = new Song[maxSongs];
+	playList = new Song*[maxSongs];
 }
 
 MusicLibrary::~MusicLibrary()
@@ -122,7 +106,7 @@ void MusicLibrary::readSongsFromFile(string filename)
 }
 
 /*
- *implement the public function 'playRandom' which plays all songs of the library (by invoking the play function of each song) in pseudo-random fashion by alternating songs from the beginning and from the end of the list, 
+ *Implement the public function 'playRandom' which plays all songs of the library (by invoking the play function of each song) in pseudo-random fashion by alternating songs from the beginning and from the end of the list, 
  *until all songs have been played. For example, if the library has 7 songs, 
  *the songs will be played in the following order: 0, 6, 1, 5, 2, 4, 3.
  */
@@ -140,12 +124,36 @@ void MusicLibrary::playRandom()
 	}
 }
 
+/*
+ *Implement the public function addSongToPlayList which stores a pointer to a song in the library in the array of Song pointer. 
+ *The input to this method is an integer denoting the position of the song in the MusicLibrary.
+ *If the Playlist is full, print the following error message:
+ *"Could not add Song to PlayList. PlayList is full"
+ *If the integer denoting the position of a song in the MusicLibrary is invalid, print the following error message:
+ *"Invalid song"
+ */
 bool MusicLibrary::addSongToPlayList(int pos)
 {
-	// implement this method
+	if (numSongsPlayList == maxSongs)
+	{
+		cout << "Could not add Song to PlayList. PlayList is full" << endl;
+		return false;
+	}
+
+	if ((pos < 0) || (pos >= numSongs))
+	{
+		cout << "Invalid song" << endl;
+		return false;
+	}
+
+	playList[numSongsPlayList] = &mySongs[pos];
+	numSongsPlayList++;
+
+	return true;
 }
 
+//Implement the public function 'playPlaylist' which plays the songs in the playlist in the same order as the songs have been added to the playlist.
 void MusicLibrary::playPlaylist()
 {
-   // implement this method
+	
 }
