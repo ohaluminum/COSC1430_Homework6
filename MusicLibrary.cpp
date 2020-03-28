@@ -98,7 +98,7 @@ void MusicLibrary::readSongsFromFile(string filename)
 
 	if (input.is_open()) {
 		string line;
-		while ( getline(input, line) && cont ) {
+		while (getline(input, line) && cont) {
 			string title, artist, album;
 			string s_year, s_time;
 			int year;
@@ -114,16 +114,30 @@ void MusicLibrary::readSongsFromFile(string filename)
 			year = stoi(s_year);
 			time = stoi(s_time);
 			cont = addSong(title, artist, album, year, time);
-		};
+		}
 	}	
 	else {
 	   cout << "could not open file " << filename << endl;
 	}
 }
 
+/*
+ *implement the public function 'playRandom' which plays all songs of the library (by invoking the play function of each song) in pseudo-random fashion by alternating songs from the beginning and from the end of the list, 
+ *until all songs have been played. For example, if the library has 7 songs, 
+ *the songs will be played in the following order: 0, 6, 1, 5, 2, 4, 3.
+ */
 void MusicLibrary::playRandom()
 {
-   // implement this method
+	for (int i = 0; i < numSongs / 2; i++)
+	{
+		mySongs[i].Play();
+		mySongs[numSongs - 1 - i].Play();
+	}
+
+	if ((numSongs % 2) != 0)
+	{
+		mySongs[numSongs / 2].Play();
+	}
 }
 
 bool MusicLibrary::addSongToPlayList(int pos)

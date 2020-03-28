@@ -10,7 +10,7 @@ int main()
 	
 	string filename;
 	int numsongs;
-   char mode;
+    char mode;
    
 	cout << "Enter number of Songs " << endl;
 	cin >> numsongs;
@@ -29,9 +29,10 @@ int main()
    }
    
    if ( mode == 'l' || mode == 'b' ) {
-    	for (int i = numsongs-1; i >= 0; i--) {
+    	for (int i = numsongs - 1; i >= 0; i--) 
+		{
 	    	mylibrary.addSongToPlayList(i);
-	   }
+	    }
 
     	mylibrary.playPlaylist();
    }
