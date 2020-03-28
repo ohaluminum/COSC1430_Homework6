@@ -4,13 +4,42 @@
 #include <string>
 #include "MusicLibrary.h"
 
+//Implement a constructor taking the number of songs as an argument.
 MusicLibrary::MusicLibrary(int maxsongs) 
 {
-   // implement constructor
+	maxSongs = maxsongs;
+	numSongs = 0;
+	mySongs = nullptr;
+
+	numSongsPlayList = 0;
+	playList = nullptr;
 }
+
+//Implement a copy constructor.
 MusicLibrary::MusicLibrary(MusicLibrary& other)
 {
-   // implement copy constructor
+	this->maxSongs = other.maxSongs;
+	this->numSongs = other.numSongs;
+
+	if (numSongs == 0)
+	{
+		mySongs = nullptr;
+	}
+	else
+	{
+		mySongs = new Song[numSongs];
+	}
+
+	this->numSongsPlayList = other.numSongsPlayList;
+
+	if (numSongsPlayList == 0)
+	{
+		playList = nullptr;
+	}
+	else
+	{
+		playList = new Song*[numSongs];
+	}
 }
 
 MusicLibrary::~MusicLibrary()
@@ -23,10 +52,12 @@ int MusicLibrary::getnumSongs()
 {
    return numSongs;
 }
+
 int MusicLibrary::getmaxSongs()
 {
    return maxSongs;
 }
+
 int MusicLibrary::getnumSongsPlayList()
 {
    return numSongsPlayList;
@@ -61,7 +92,6 @@ bool MusicLibrary::addSong(Song& song)
 
 void MusicLibrary::readSongsFromFile(string filename)
 {
-
 	ifstream input;
 	input.open(filename);
 	bool cont = true;
